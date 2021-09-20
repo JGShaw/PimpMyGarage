@@ -1,7 +1,7 @@
 package main
 
 import (
-	"PimpMyGarage/PimpMyGarage/fan"
+	"PimpMyGarage/fan"
 	"github.com/gin-gonic/gin"
 	"github.com/stianeikeland/go-rpio/v4"
 )
