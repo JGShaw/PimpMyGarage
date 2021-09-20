@@ -4,7 +4,6 @@ import (
 	"PimpMyGarage/PimpMyGarage/fan"
 	"github.com/gin-gonic/gin"
 	"github.com/stianeikeland/go-rpio/v4"
-
 )
 
 var relay1 rpio.Pin
@@ -16,13 +15,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	defer  rpio.Close()
+	defer rpio.Close()
 
 	fanController := fan.NewFanController()
 
 	router := gin.Default()
 	router.GET("/fan", fanController.Index)
-	router.GET("/fan/:speed", fanController.Speed)
+	router.GET("/fan/speed/:speed", fanController.Speed)
 
 	router.Run(":8080")
 }

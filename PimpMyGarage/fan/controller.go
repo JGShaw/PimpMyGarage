@@ -13,8 +13,8 @@ func NewFanController() controller {
 	c := controller{
 		relays: map[string]rpio.Pin{
 			"1": rpio.Pin(26),
-			"2":	 rpio.Pin(20),
-			"3":	 rpio.Pin(21),
+			"2": rpio.Pin(20),
+			"3": rpio.Pin(21),
 		},
 	}
 	for _, pin := range c.relays {
@@ -44,6 +44,3 @@ func (c controller) setPinOn(pinName string) {
 		pin.Low()
 	}
 }
-
-
-
