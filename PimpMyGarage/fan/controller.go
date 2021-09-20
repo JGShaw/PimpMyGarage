@@ -24,7 +24,7 @@ func NewFanController() controller {
 }
 
 func (c controller) Index(context *gin.Context) {
-	context.File("index.html")
+	context.File("PimpMyGarage/fan/index.html")
 }
 
 func (c controller) Speed(context *gin.Context) {
