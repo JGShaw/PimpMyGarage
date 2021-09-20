@@ -34,16 +34,16 @@ func setupRelays() {
 }
 
 func fanSpeed(c *gin.Context) {
-	relay1.Low()
-	relay2.Low()
-	relay3.Low()
+	relay1.High()
+	relay2.High()
+	relay3.High()
 
 	switch c.Param("speed") {
 	case "1":
-		relay1.High()
+		relay1.Low()
 	case "2":
-		relay2.High()
+		relay2.Low()
 	case "3":
-		relay3.High()
+		relay3.Low()
 	}
 }
