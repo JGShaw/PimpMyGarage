@@ -30,7 +30,7 @@ func (c controller) Index(context *gin.Context) {
 func (c controller) Speed(context *gin.Context) {
 	c.setAllOff()
 	c.setPinOn(context.Param("speed"))
-	context.Redirect(200, "/fan")
+	context.Redirect(303, "/fan")
 }
 
 func (c controller) setAllOff() {
