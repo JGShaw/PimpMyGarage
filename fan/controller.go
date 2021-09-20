@@ -24,6 +24,7 @@ func NewFanController() controller {
 	for _, pin := range c.relays {
 		pin.Output()
 	}
+	c.setAllOff()
 	return c
 }
 
