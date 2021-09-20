@@ -1,9 +1,13 @@
 package fan
 
 import (
+	_ "embed"
 	"github.com/gin-gonic/gin"
 	"github.com/stianeikeland/go-rpio/v4"
 )
+
+//go:embed index.html
+var indexPage string
 
 type controller struct {
 	relays map[string]rpio.Pin
@@ -24,7 +28,7 @@ func NewFanController() controller {
 }
 
 func (c controller) Index(context *gin.Context) {
-	context.File("PimpMyGarage/fan/index.html")
+	context.Data(200, "text/plain; charset=utf-8", []byte(indexPage))
 }
 
 func (c controller) Speed(context *gin.Context) {

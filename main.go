@@ -6,10 +6,6 @@ import (
 	"github.com/stianeikeland/go-rpio/v4"
 )
 
-var relay1 rpio.Pin
-var relay2 rpio.Pin
-var relay3 rpio.Pin
-
 func main() {
 	err := rpio.Open()
 	if err != nil {
