@@ -28,7 +28,7 @@ func NewFanController() controller {
 }
 
 func (c controller) Index(context *gin.Context) {
-	context.Data(200, "text/plain; charset=utf-8", []byte(indexPage))
+	context.Data(200, "text/html; charset=utf-8", []byte(indexPage))
 }
 
 func (c controller) Speed(context *gin.Context) {
