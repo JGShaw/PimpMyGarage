@@ -17,7 +17,7 @@ func main() {
 
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/**/*")
-	router.StaticFile("pimp_my_garage.svg", "templates/fan/pimp_my_garage.svg")
+	router.StaticFile("templates/fan/pimp_my_garage.svg", "templates/fan/pimp_my_garage.svg")
 	router.GET("/fan", fanController.Index)
 	router.GET("/fan/speed/:speed", fanController.Speed)
 
