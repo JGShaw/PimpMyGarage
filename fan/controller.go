@@ -8,20 +8,25 @@ import (
 )
 
 type controller struct {
-	relays map[string]rpio.Pin
+	relays map[string]pin
+}
+
+type pin struct {
+	Active bool
+	pin rpio.Pin
 }
 
 func NewController() controller {
 	c := controller{
-		relays: map[string]rpio.Pin{
-			"off": rpio.Pin(5),
-			"low": rpio.Pin(26),
-			"medium": rpio.Pin(20),
-			"high": rpio.Pin(21),
+		relays: map[string]pin{
+			"off": {true, rpio.Pin(5)},
+			"low": {false, rpio.Pin(26)},
+			"medium": {false, rpio.Pin(20)},
+			"high": {false, rpio.Pin(21)},
 		},
 	}
 	for _, pin := range c.relays {
-		pin.Output()
+		pin.pin.Output()
 	}
 	c.setAllOff()
 	return c
@@ -30,7 +35,6 @@ func NewController() controller {
 func (c controller) Index(context *gin.Context) {
 	context.HTML(http.StatusOK, "fan/index.tmpl", gin.H{
 		"relays": c.relays,
-		"active": c.currentActive(),
 	})
 }
 
@@ -42,21 +46,14 @@ func (c controller) Speed(context *gin.Context) {
 
 func (c controller) setAllOff() {
 	for _, pin := range c.relays {
-		pin.High()
+		pin.pin.High()
+		pin.active = false
 	}
 }
 
 func (c controller) setPinOn(pinName string) {
 	if pin, found := c.relays[pinName]; found {
-		pin.Low()
+		pin.pin.Low()
+		pin.active = true
 	}
-}
-
-func (c controller) currentActive() string {
-	for key, pin := range c.relays {
-		if pin.Read() == rpio.Low {
-			return key
-		}
-	}
-	return "0"
 }
