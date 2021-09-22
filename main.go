@@ -12,9 +12,11 @@ func main() {
 	//}
 	//defer rpio.Close()
 
+
 	fanController := fan.NewController()
 
 	router := gin.Default()
+	router.LoadHTMLGlob("templates/**/*")
 	router.GET("/fan", fanController.Index)
 	router.GET("/fan/speed/:speed", fanController.Speed)
 
