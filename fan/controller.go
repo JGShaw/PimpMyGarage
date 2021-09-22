@@ -13,18 +13,18 @@ type controller struct {
 	relays map[string]rpio.Pin
 }
 
-func NewFanController() controller {
+func NewController() controller {
 	c := controller{
 		relays: map[string]rpio.Pin{
-			"1": rpio.Pin(26),
-			"2": rpio.Pin(20),
-			"3": rpio.Pin(21),
+			//"1": rpio.Pin(26),
+			//"2": rpio.Pin(20),
+			//"3": rpio.Pin(21),
 		},
 	}
-	for _, pin := range c.relays {
-		pin.Output()
-	}
-	c.setAllOff()
+	//for _, pin := range c.relays {
+		//pin.Output()
+	//}
+	//c.setAllOff()
 	return c
 }
 
@@ -33,8 +33,8 @@ func (c controller) Index(context *gin.Context) {
 }
 
 func (c controller) Speed(context *gin.Context) {
-	c.setAllOff()
-	c.setPinOn(context.Param("speed"))
+	//c.setAllOff()
+	//c.setPinOn(context.Param("speed"))
 	context.Redirect(303, "/fan")
 }
 
