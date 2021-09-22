@@ -12,9 +12,9 @@ type controller struct {
 }
 
 type pin struct {
-	Name string
+	Name   string
 	Active bool
-	pin rpio.Pin
+	pin    rpio.Pin
 }
 
 func NewController() controller {

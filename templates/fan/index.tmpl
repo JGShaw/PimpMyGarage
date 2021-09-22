@@ -12,7 +12,7 @@
       <h3>Fan speed</h3>
       <div class="btn-group flex-wrap" role="group" aria-label="fan speed">
           {{ range .relays }}
-              <a href="/fan/speed/{{ .Name }}" class="btn btn-lg btn{{if not .Active}}-outline{{end}}-primary">{{ .Name }}</a>
+              <a href="/fan/speed/{{ .Name }}" class="btn btn-lg btn{{ if not .Active }}-outline{{ end }}-primary">{{ .Name }}</a>
           {{ end }}
       </div>
    </div>
