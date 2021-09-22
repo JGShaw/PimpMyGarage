@@ -3,15 +3,15 @@ package main
 import (
 	"PimpMyGarage/fan"
 	"github.com/gin-gonic/gin"
+	"github.com/stianeikeland/go-rpio/v4"
 )
 
 func main() {
-	//err := rpio.Open()
-	//if err != nil {
-	//	panic(err)
-	//}
-	//defer rpio.Close()
-
+	err := rpio.Open()
+	if err != nil {
+		panic(err)
+	}
+	defer rpio.Close()
 
 	fanController := fan.NewController()
 
