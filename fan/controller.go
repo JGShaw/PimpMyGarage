@@ -32,26 +32,26 @@ func NewController() controller {
 	return c
 }
 
-func (c controller) Index(context *gin.Context) {
+func (c *controller) Index(context *gin.Context) {
 	context.HTML(http.StatusOK, "fan/index.tmpl", gin.H{
 		"relays": c.relays,
 	})
 }
 
-func (c controller) Speed(context *gin.Context) {
+func (c *controller) Speed(context *gin.Context) {
 	c.setAllOff()
 	c.setPinOn(context.Param("speed"))
-	context.Redirect(303, "/fan")
+	context.Redirect(http.StatusSeeOther, "/fan")
 }
 
-func (c controller) setAllOff() {
+func (c *controller) setAllOff() {
 	for _, pin := range c.relays {
 		pin.pin.High()
 		pin.Active = false
 	}
 }
 
-func (c controller) setPinOn(pinName string) {
+func (c *controller) setPinOn(pinName string) {
 	if pin, found := c.relays[pinName]; found {
 		pin.pin.Low()
 		pin.Active = true
