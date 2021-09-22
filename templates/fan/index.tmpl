@@ -13,9 +13,9 @@
       <div class="btn-group flex-wrap" role="group" aria-label="fan speed">
         {{ range .relays }}
             {{ if .Active }}
-                 <a href="/fan/speed/{{$key}}" class="btn btn-lg btn-primary">{{ $key }}</a>
+                 <a href="/fan/speed/{{ .Name }}" class="btn btn-lg btn-primary">{{ .Name }}</a>
             {{ else }}
-                 <a href="/fan/speed/{{$key}}" class="btn btn-lg btn-outline-primary">{{ $key }}</a>
+                 <a href="/fan/speed/{{ .Name }}" class="btn btn-lg btn-outline-primary">{{ .Name }}</a>
             {{ end }}
         {{ end }}
       </div>
