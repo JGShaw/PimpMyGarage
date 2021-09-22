@@ -47,13 +47,13 @@ func (c controller) Speed(context *gin.Context) {
 func (c controller) setAllOff() {
 	for _, pin := range c.relays {
 		pin.pin.High()
-		pin.active = false
+		pin.Active = false
 	}
 }
 
 func (c controller) setPinOn(pinName string) {
 	if pin, found := c.relays[pinName]; found {
 		pin.pin.Low()
-		pin.active = true
+		pin.Active = true
 	}
 }
