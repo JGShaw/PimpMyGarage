@@ -28,7 +28,7 @@ func NewController() controller {
 	for _, pin := range c.relays {
 		pin.pin.Output()
 	}
-	c.setAllOff()
+	c.setJustPinOn("off")
 	return c
 }
 
@@ -39,22 +39,19 @@ func (c *controller) Index(context *gin.Context) {
 }
 
 func (c *controller) Speed(context *gin.Context) {
-	c.setAllOff()
-	c.setPinOn(context.Param("speed"))
+	c.setJustPinOn(context.Param("speed"))
 	context.Redirect(http.StatusSeeOther, "/fan")
 }
 
-func (c *controller) setAllOff() {
-	for _, pin := range c.relays {
-		pin.pin.High()
-		pin.Active = false
-	}
-	c.setPinOn("off")
-}
+func (c *controller) setJustPinOn(pinName string) {
+	for name, pin := range c.relays {
+		if name == pinName {
+			pin.pin.Low()
+			pin.Active = true
+		} else {
+			pin.pin.High()
+			pin.Active = false
 
-func (c *controller) setPinOn(pinName string) {
-	if pin, found := c.relays[pinName]; found {
-		pin.pin.Low()
-		pin.Active = true
+		}
 	}
 }
