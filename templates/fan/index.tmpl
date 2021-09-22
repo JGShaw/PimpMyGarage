@@ -12,7 +12,7 @@
       <h3>Fan speed</h3>
       <div class="btn-group flex-wrap" role="group" aria-label="fan speed">
         {{ range $key, $pin := .relays }}
-            {{ if eq $key .active }}
+            {{ if eq .Read() 0 }}
                  <a href="/fan/speed/{{$key}}" class="btn btn-lg btn-primary">{{ $key }}</a>
             {{ else }}
                  <a href="/fan/speed/{{$key}}" class="btn btn-lg btn-outline-primary">{{ $key }}</a>
