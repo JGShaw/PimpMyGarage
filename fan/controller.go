@@ -8,21 +8,22 @@ import (
 )
 
 type controller struct {
-	relays map[string]*pin
+	relays []*pin
 }
 
 type pin struct {
+	Name string
 	Active bool
 	pin rpio.Pin
 }
 
 func NewController() controller {
 	c := controller{
-		relays: map[string]*pin{
-			"off": {true, rpio.Pin(5)},
-			"low": {false, rpio.Pin(26)},
-			"medium": {false, rpio.Pin(20)},
-			"high": {false, rpio.Pin(21)},
+		relays: []*pin{
+			{"off", true, rpio.Pin(5)},
+			{"low", false, rpio.Pin(26)},
+			{"medium", false, rpio.Pin(20)},
+			{"high", false, rpio.Pin(21)},
 		},
 	}
 	for _, pin := range c.relays {
@@ -44,8 +45,8 @@ func (c *controller) Speed(context *gin.Context) {
 }
 
 func (c *controller) setJustPinOn(pinName string) {
-	for name, pin := range c.relays {
-		if name == pinName {
+	for _, pin := range c.relays {
+		if pin.Name == pinName {
 			pin.pin.Low()
 			pin.Active = true
 		} else {
