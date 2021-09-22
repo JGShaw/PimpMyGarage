@@ -49,6 +49,7 @@ func (c *controller) setAllOff() {
 		pin.pin.High()
 		pin.Active = false
 	}
+	c.setPinOn("off")
 }
 
 func (c *controller) setPinOn(pinName string) {
