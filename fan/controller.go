@@ -8,7 +8,7 @@ import (
 )
 
 type controller struct {
-	relays map[string]pin
+	relays map[string]*pin
 }
 
 type pin struct {
@@ -18,7 +18,7 @@ type pin struct {
 
 func NewController() controller {
 	c := controller{
-		relays: map[string]pin{
+		relays: map[string]*pin{
 			"off": {true, rpio.Pin(5)},
 			"low": {false, rpio.Pin(26)},
 			"medium": {false, rpio.Pin(20)},
