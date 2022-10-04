@@ -1,0 +1,14 @@
+{{ define "hrm/index.tmpl" }}
+{{ template "global/header.tmpl" }}
+
+{{ if .hrm }}
+    <p>Connected to: {{ .hrm }}</p>
+    <a href="/hrm/disconnect">Disconnect</a>
+{{ else }}
+    <p>No heart rate monitor connected</p>
+    <a href="/hrm/search">Search</a>
+{{ end }}
+
+
+{{ template "global/footer.tmpl" }}
+{{ end }}

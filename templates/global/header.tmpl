@@ -2,11 +2,36 @@
 <html>
 <head>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
    <title>Pimp my garage</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div class="container-fluid">
-   <img width="100%" style="max-height: 100px; margin-top: 5px" src="templates/pimp_my_garage.svg" />
-   <div class="col-12">
+
+
+<div class="row">
+       <div class="col-sm-auto bg-light sticky-top">
+           <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+               <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+                   <li class="nav-item">
+                       <a href="/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                           <i class="bi-house fs-1"></i>
+                       </a>
+                   </li>
+                   <li>
+                       <a href="/hrm" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Heart rate">
+                           <i class="bi-heart-pulse fs-1"></i>
+                       </a>
+                   </li>
+                   <li>
+                       <a href="/fan" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Fan">
+                           <i class="bi-wind fs-1"></i>
+                       </a>
+                   </li>
+               </ul>
+           </div>
+       </div>
+       <div class="col-sm p-3 min-vh-100">
+           <img width="100%" style="max-height: 100px; margin-top: 5px" src="/templates/pimp_my_garage.svg" />
+
 {{ end }}

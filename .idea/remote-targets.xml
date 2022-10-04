@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="pi@192.168.1.109:22" type="ssh/sftp" uuid="b225bee6-0ed2-4950-9052-49eecf3db782">
+        <config>
+          <option name="projectRootOnTarget" value="/tmp/PimpMyGarage" />
+          <option name="serverName" value="pi@192.168.1.109:22 agent" />
+          <option name="useRsync" value="true" />
+        </config>
+        <ContributedStateBase type="GoLanguageRuntime">
+          <config>
+            <option name="goPath" value="/home/pi/go" />
+            <option name="goRoot" value="/usr/local/go/bin/go" />
+            <option name="goVersion" value="go1.16.7 linux/arm" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
