@@ -1,9 +1,9 @@
 {{ define "hrm/search.tmpl" }}
 {{ template "global/header.tmpl" }}
 
-{{ range .found }}
 <h4>Search results</h4>
-<a href="/hrm/connect/{{ .Address.String }}">{{ .LocalName }}</a>
+{{ range .found }}
+<a href="/hrm/connect/{{ . }}">{{ . }}</a>
 {{ else }}
     <p>No devices found!</p>
     <a href="/hrm/search">Search</a>

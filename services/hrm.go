@@ -7,11 +7,10 @@ import (
 )
 
 const scanTimeout = 10 * time.Second
-const connectionTimeout = 5 * time.Second
+const connectionTimeout = 10 * time.Second
 
 type HrmService struct {
 	adapter             *bluetooth.Adapter
-	scanResults         map[string]bluetooth.ScanResult
 	connectedDeviceName string
 	device              *bluetooth.Device
 	listeners           []func(float64)
@@ -26,8 +25,8 @@ func NewHrmService() (*HrmService, error) {
 	return &service, err
 }
 
-func (h *HrmService) Scan() ([]bluetooth.ScanResult, error) {
-	h.scanResults = map[string]bluetooth.ScanResult{}
+func (h *HrmService) Scan() ([]string, error) {
+	var foundDevices []string
 
 	go func() {
 		<-time.After(scanTimeout)
@@ -36,35 +35,37 @@ func (h *HrmService) Scan() ([]bluetooth.ScanResult, error) {
 
 	err := h.adapter.Scan(func(adapter *bluetooth.Adapter, scanResult bluetooth.ScanResult) {
 		if scanResult.HasServiceUUID(bluetooth.ServiceUUIDHeartRate) {
-			h.scanResults[scanResult.Address.String()] = scanResult
-			return
+			foundDevices = append(foundDevices, scanResult.LocalName())
 		}
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	values := make([]bluetooth.ScanResult, len(h.scanResults))
-	i := 0
-	for _, v := range h.scanResults {
-		values[i] = v
-		i++
-	}
-	return values, nil
+	return foundDevices, nil
 }
 
-func (h *HrmService) Connect(address string) error {
-	scanResult := h.scanResults[address]
-	device, err := h.adapter.Connect(scanResult.Address, bluetooth.ConnectionParams{
+func (h *HrmService) Connect(deviceName string) error {
+	var found bluetooth.ScanResult
+
+	err := h.adapter.Scan(func(adapter *bluetooth.Adapter, scanResult bluetooth.ScanResult) {
+		if scanResult.LocalName() == deviceName {
+			found = scanResult
+			h.adapter.StopScan()
+		}
+	})
+
+	device, err := h.adapter.Connect(found.Address, bluetooth.ConnectionParams{
 		ConnectionTimeout: bluetooth.NewDuration(connectionTimeout),
+		MinInterval:       bluetooth.NewDuration(2 * time.Second),
 	})
 	if err != nil {
-		fmt.Println("Here")
-		return err
+		fmt.Println("Trying again")
+		return h.Connect(deviceName)
 	}
 
 	h.device = device
-	h.connectedDeviceName = scanResult.LocalName()
+	h.connectedDeviceName = found.LocalName()
 
 	services, err := h.device.DiscoverServices([]bluetooth.UUID{bluetooth.ServiceUUIDHeartRate})
 	if err != nil {
@@ -90,6 +91,7 @@ func (h *HrmService) ConnectedDeviceName() string {
 }
 
 func (h *HrmService) Disconnect() error {
+	fmt.Println("Disconnecting")
 	var err error
 	if h.device != nil {
 		err = h.device.Disconnect()
