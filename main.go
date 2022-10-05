@@ -27,9 +27,13 @@ func main() {
 			hrMax := 190.0
 			hr = math.Max(math.Min(hr, hrMax), hrMin)
 			percentage := (hr - hrMin) / (hrMax - hrMin)
-			ledService.SetColorPercentage(percentage)
+			err := ledService.SetColorPercentage(percentage)
+			if err != nil {
+				return
+			}
 		},
 	})
+	ledController := controllers.NewLedController()
 
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/**/*")
@@ -44,6 +48,8 @@ func main() {
 	router.GET("/hrm/search", hrmController.Search)
 	router.GET("/hrm/connect/:address", hrmController.Connect)
 	router.GET("/hrm/disconnect", hrmController.Disconnect)
+
+	router.GET("/led", ledController.Index)
 
 	defer hrmService.Disconnect()
 	router.Run(":8080")

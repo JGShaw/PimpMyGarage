@@ -59,6 +59,7 @@ func (h *HrmService) Connect(address string) error {
 		ConnectionTimeout: bluetooth.NewDuration(connectionTimeout),
 	})
 	if err != nil {
+		fmt.Println("Here")
 		return err
 	}
 
@@ -89,7 +90,10 @@ func (h *HrmService) ConnectedDeviceName() string {
 }
 
 func (h *HrmService) Disconnect() error {
-	err := h.device.Disconnect()
+	var err error
+	if h.device != nil {
+		err = h.device.Disconnect()
+	}
 	h.device = nil
 	h.connectedDeviceName = ""
 	return err

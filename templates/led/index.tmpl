@@ -1,0 +1,12 @@
+{{ define "led/index.tmpl" }}
+{{ template "global/header.tmpl" }}
+
+    <form class="col-md-3">
+        <label class="form-label" for="ipAddress">IP address:</label>
+        <input class="form-control" type="text" name="ipAddress" value="{{ .ipAddress }}"><br>
+        <label class="form-label" for="port">Port:</label>
+        <input class="form-control" type="text" name="port" value="{{ .port }}"><br>
+        <button type="submit" class="btn btn-primary">Update details</button>
+    </form>
+{{ template "global/footer.tmpl" }}
+{{ end }}
