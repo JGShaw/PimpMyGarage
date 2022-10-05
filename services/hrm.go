@@ -57,7 +57,6 @@ func (h *HrmService) Connect(deviceName string) error {
 
 	device, err := h.adapter.Connect(found.Address, bluetooth.ConnectionParams{
 		ConnectionTimeout: bluetooth.NewDuration(connectionTimeout),
-		MinInterval:       bluetooth.NewDuration(2 * time.Second),
 	})
 	if err != nil {
 		fmt.Println("Trying again")

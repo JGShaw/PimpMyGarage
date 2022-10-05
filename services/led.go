@@ -6,22 +6,22 @@ import (
 	"net"
 )
 
-type ledService struct {
+type LedService struct {
 	controller *magichome.Controller
 	minHue     float64
 	maxHue     float64
 }
 
-func NewLedService() *ledService {
-	c, _ := magichome.New(net.ParseIP("192.168.1.104"), 5577)
-	return &ledService{
+func NewLedService(ipAddress string, port uint16) *LedService {
+	c, _ := magichome.New(net.ParseIP(ipAddress), port)
+	return &LedService{
 		controller: c,
 		minHue:     240,
 		maxHue:     0,
 	}
 }
 
-func (l *ledService) SetColorPercentage(percentage float64) error {
+func (l *LedService) SetColorPercentage(percentage float64) error {
 	hue := l.minHue + ((l.maxHue - l.minHue) * percentage)
 	rgb := coco.Hsl2Rgb(hue, 100, 50)
 	return l.controller.SetColor(magichome.Color{
@@ -30,4 +30,8 @@ func (l *ledService) SetColorPercentage(percentage float64) error {
 		B: uint8(rgb[2]),
 		W: 0,
 	})
+}
+
+func (l *LedService) Close() error {
+	return l.controller.Close()
 }
